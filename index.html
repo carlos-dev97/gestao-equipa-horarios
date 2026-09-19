@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#3b2a22"
+    >
+
+    <meta
+        name="description"
+        content="Café Almedina — gestão de equipa e horários de trabalho"
+    >
+
+    <link rel="manifest" href="manifest.json">
+
+    <link
+        rel="stylesheet"
+        href="style.css?v=20260920"
+    >
+
+    <title>Café Almedina · Horários</title>
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <!-- =====================================================
+         TOPO
+    ====================================================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                CA
+            </div>
+
+            <div>
+
+                <h1>
+                    Café Almedina
+                </h1>
+
+                <p>
+                    Gestão de equipa e horários
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="topbar-actions">
+
+            <button
+                id="todayButton"
+                class="button secondary"
+                type="button"
+            >
+                Hoje
+            </button>
+
+
+            <button
+                id="printButton"
+                class="button primary"
+                type="button"
+            >
+                🖨️ Imprimir / PDF
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         NAVEGAÇÃO
+    ====================================================== -->
+
+    <nav class="main-nav">
+
+        <button
+            id="scheduleNavButton"
+            class="nav-button active"
+            type="button"
+        >
+            📅 Horários
+        </button>
+
+
+        <button
+            id="employeesNavButton"
+            class="nav-button"
+            type="button"
+        >
+            👥 Equipa
+        </button>
+
+
+        <button
+            id="historyNavButton"
+            class="nav-button"
+            type="button"
+        >
+            🕘 Histórico
+        </button>
+
+    </nav>
+
+
+    <main>
+
+        <!-- =================================================
+             HORÁRIOS
+        ================================================== -->
+
+        <section
+            id="scheduleSection"
+            class="page-section active"
+        >
+
+
+            <!-- CABEÇALHO DA SEMANA -->
+
+            <div class="week-header-card">
+
+                <div class="coffee-pattern"></div>
+
+
+                <div class="coffee-decoration coffee-decoration-one">
+                    ☕
+                </div>
+
+
+                <div class="coffee-decoration coffee-decoration-two">
+                    ✦
+                </div>
+
+
+                <div class="coffee-decoration coffee-decoration-three">
+                    • • •
+                </div>
+
+
+                <div class="week-information">
+
+                    <span
+                        id="weekMonth"
+                        class="week-month"
+                    >
+                        SETEMBRO
+                    </span>
+
+
+                    <h2 id="weekNumber">
+                        Semana 1
+                    </h2>
+
+
+                    <p id="weekRange">
+                        01/09 — 07/09
+                    </p>
+
+                </div>
+
+
+                <div class="week-navigation">
+
+                    <button
+                        id="previousWeekButton"
+                        class="circle-button"
+                        type="button"
+                        aria-label="Semana anterior"
+                    >
+                        ‹
+                    </button>
+
+
+                    <button
+                        id="nextWeekButton"
+                        class="circle-button"
+                        type="button"
+                        aria-label="Semana seguinte"
+                    >
+                        ›
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- AVISO DE SEMANA ENCERRADA -->
+
+            <div
+                id="historyLockBanner"
+                class="history-lock-banner hidden"
+            >
+
+                <div class="history-lock-icon">
+                    🔒
+                </div>
+
+                <div>
+
+                    <strong>
+                        Semana encerrada
+                    </strong>
+
+                    <span>
+                        Esta semana encontra-se no histórico e está disponível apenas para consulta.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESUMO -->
+
+            <div class="summary-grid">
+
+                <div class="summary-card">
+
+                    <span class="summary-label">
+                        Total da equipa
+                    </span>
+
+                    <strong id="totalTeamHours">
+                        0h
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <span class="summary-label">
+                        Funcionários
+                    </span>
+
+                    <strong id="totalEmployees">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <span class="summary-label">
+                        Folgas
+                    </span>
+
+                    <strong id="totalDaysOff">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- FERRAMENTAS -->
+
+            <div class="toolbar">
+
+                <div class="toolbar-left">
+
+                    <select
+                        id="employeeFilter"
+                        class="select-control"
+                    >
+
+                        <option value="all">
+                            Todos os funcionários
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="toolbar-right">
+
+                    <button
+                        id="addEmployeeFromScheduleButton"
+                        class="button secondary"
+                        type="button"
+                    >
+                        + Funcionário
+                    </button>
+
+
+                    <button
+                        id="addScheduleButton"
+                        class="button primary"
+                        type="button"
+                    >
+                        + Adicionar horário
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- TABELA -->
+
+            <div class="schedule-card">
+
+                <div class="table-wrapper">
+
+                    <table id="scheduleTable">
+
+                        <thead>
+
+                        <tr>
+
+                            <th class="employee-column">
+                                Funcionário
+                            </th>
+
+
+                            <th>
+                                <span id="headerDay1">
+                                    SEG
+                                </span>
+                            </th>
+
+
+                            <th>
+                                <span id="headerDay2">
+                                    TER
+                                </span>
+                            </th>
+
+
+                            <th>
+                                <span id="headerDay3">
+                                    QUA
+                                </span>
+                            </th>
+
+
+                            <th>
+                                <span id="headerDay4">
+                                    QUI
+                                </span>
+                            </th>
+
+
+                            <th>
+                                <span id="headerDay5">
+                                    SEX
+                                </span>
+                            </th>
+
+
+                            <th>
+                                <span id="headerDay6">
+                                    SÁB
+                                </span>
+                            </th>
+
+
+                            <th>
+                                <span id="headerDay7">
+                                    DOM
+                                </span>
+                            </th>
+
+
+                            <th class="total-column">
+                                Total
+                            </th>
+
+                        </tr>
+
+                        </thead>
+
+
+                        <tbody
+                            id="scheduleTableBody"
+                        ></tbody>
+
+                    </table>
+
+                </div>
+
+
+                <div
+                    id="emptyScheduleState"
+                    class="empty-state"
+                >
+
+                    <div class="empty-icon">
+                        👥
+                    </div>
+
+
+                    <h3>
+                        Ainda não existem funcionários
+                    </h3>
+
+
+                    <p>
+                        Começa por adicionar a equipa.
+                        Depois podes preencher os horários diretamente nesta tabela.
+                    </p>
+
+
+                    <button
+                        id="emptyAddEmployeeButton"
+                        class="button primary"
+                        type="button"
+                    >
+                        + Adicionar funcionário
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             EQUIPA
+        ================================================== -->
+
+        <section
+            id="employeesSection"
+            class="page-section"
+        >
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-kicker">
+                        EQUIPA
+                    </span>
+
+
+                    <h2>
+                        Funcionários
+                    </h2>
+
+
+                    <p>
+                        Gere os funcionários e os respetivos dados.
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="addEmployeeButton"
+                    class="button primary"
+                    type="button"
+                >
+                    + Adicionar funcionário
+                </button>
+
+            </div>
+
+
+            <div
+                id="employeesGrid"
+                class="employees-grid"
+            ></div>
+
+
+            <div
+                id="emptyEmployeeState"
+                class="empty-state"
+            >
+
+                <div class="empty-icon">
+                    👤
+                </div>
+
+
+                <h3>
+                    A equipa ainda está vazia
+                </h3>
+
+
+                <p>
+                    Adiciona os funcionários que vão aparecer no horário.
+                </p>
+
+
+                <button
+                    id="emptyEmployeeButton"
+                    class="button primary"
+                    type="button"
+                >
+                    + Adicionar funcionário
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             HISTÓRICO
+        ================================================== -->
+
+        <section
+            id="historySection"
+            class="page-section"
+        >
+
+            <div class="section-heading history-heading">
+
+                <div>
+
+                    <span class="section-kicker">
+                        ARQUIVO
+                    </span>
+
+
+                    <h2>
+                        Histórico
+                    </h2>
+
+
+                    <p>
+                        Consulta as semanas que já terminaram.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="history-toolbar">
+
+                <div>
+
+                    <span class="history-toolbar-label">
+                        Filtrar por mês
+                    </span>
+
+
+                    <select
+                        id="historyMonthFilter"
+                        class="select-control"
+                    >
+                        <option value="all">
+                            Todos os meses
+                        </option>
+                    </select>
+
+                </div>
+
+
+                <div class="history-count-card">
+
+                    <span>
+                        Semanas arquivadas
+                    </span>
+
+                    <strong id="historyWeekCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="historyList"
+                class="history-list"
+            ></div>
+
+
+            <div
+                id="emptyHistoryState"
+                class="empty-state history-empty"
+            >
+
+                <div class="empty-icon">
+                    🕘
+                </div>
+
+
+                <h3>
+                    Ainda não existe histórico
+                </h3>
+
+
+                <p>
+                    As semanas passam automaticamente para aqui quando terminam.
+                    As semanas encerradas ficam apenas disponíveis para consulta.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     MODAL FUNCIONÁRIO
+========================================================= -->
+
+<div
+    id="employeeModal"
+    class="modal"
+    aria-hidden="true"
+>
+
+    <div class="modal-overlay"></div>
+
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <div>
+
+                <span class="section-kicker">
+                    EQUIPA
+                </span>
+
+
+                <h2 id="employeeModalTitle">
+                    Novo funcionário
+                </h2>
+
+            </div>
+
+
+            <button
+                class="modal-close"
+                type="button"
+                aria-label="Fechar"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="employeeForm">
+
+            <input
+                id="employeeId"
+                type="hidden"
+            >
+
+
+            <div class="form-group">
+
+                <label for="employeeName">
+                    Nome
+                </label>
+
+
+                <input
+                    id="employeeName"
+                    type="text"
+                    placeholder="Ex.: Carlos Sá"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="employeeType">
+                        Função
+                    </label>
+
+
+                    <input
+                        id="employeeType"
+                        type="text"
+                        placeholder="Ex.: Empregado de mesa"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="employeeHours">
+                        Horas semanais
+                    </label>
+
+
+                    <input
+                        id="employeeHours"
+                        type="number"
+                        min="0"
+                        step="0.5"
+                        value="40"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="employeeBirth">
+                    Data de nascimento
+                </label>
+
+
+                <input
+                    id="employeeBirth"
+                    type="date"
+                >
+
+
+                <small>
+                    O aniversário aparece automaticamente no dia correspondente.
+                </small>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    id="deleteEmployeeButton"
+                    class="button danger"
+                    type="button"
+                >
+                    Eliminar
+                </button>
+
+
+                <div class="modal-actions-right">
+
+                    <button
+                        id="cancelEmployeeButton"
+                        class="button secondary"
+                        type="button"
+                    >
+                        Cancelar
+                    </button>
+
+
+                    <button
+                        class="button primary"
+                        type="submit"
+                    >
+                        Guardar funcionário
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MODAL HORÁRIO
+========================================================= -->
+
+<div
+    id="scheduleModal"
+    class="modal"
+    aria-hidden="true"
+>
+
+    <div class="modal-overlay"></div>
+
+
+    <div class="modal-box schedule-modal-box">
+
+        <div class="modal-header">
+
+            <div>
+
+                <span class="section-kicker">
+                    HORÁRIO
+                </span>
+
+
+                <h2>
+                    Definir horário
+                </h2>
+
+            </div>
+
+
+            <button
+                class="modal-close"
+                type="button"
+                aria-label="Fechar"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="scheduleForm">
+
+            <input
+                id="scheduleDate"
+                type="hidden"
+            >
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="scheduleEmployee">
+                        Funcionário
+                    </label>
+
+
+                    <select
+                        id="scheduleEmployee"
+                        required
+                    ></select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="scheduleDay">
+                        Dia
+                    </label>
+
+
+                    <input
+                        id="scheduleDay"
+                        type="text"
+                        readonly
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="scheduleStatus">
+                    Estado
+                </label>
+
+
+                <select id="scheduleStatus">
+
+                    <option value="work">
+                        Horário
+                    </option>
+
+                    <option value="off">
+                        Folga
+                    </option>
+
+                    <option value="vacation">
+                        Férias
+                    </option>
+
+                    <option value="sick">
+                        Baixa
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div id="workFields">
+
+                <div class="period-title">
+                    Período de trabalho
+                </div>
+
+
+                <div class="form-row period-grid">
+
+                    <div class="form-group">
+
+                        <label for="start1">
+                            Entrada
+                        </label>
+
+
+                        <input
+                            id="start1"
+                            type="time"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="end1">
+                            Saída
+                        </label>
+
+
+                        <input
+                            id="end1"
+                            type="time"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="break1">
+                            Pausa (min.)
+                        </label>
+
+
+                        <input
+                            id="break1"
+                            type="number"
+                            min="0"
+                            value="0"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <label class="switch-row">
+
+                    <input
+                        id="toggleSecondPeriod"
+                        type="checkbox"
+                    >
+
+
+                    <span class="switch"></span>
+
+
+                    <span>
+                        Segundo período
+                    </span>
+
+                </label>
+
+
+                <div
+                    id="secondPeriodFields"
+                    class="form-row period-grid hidden"
+                >
+
+                    <div class="form-group">
+
+                        <label for="start2">
+                            Entrada
+                        </label>
+
+
+                        <input
+                            id="start2"
+                            type="time"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="end2">
+                            Saída
+                        </label>
+
+
+                        <input
+                            id="end2"
+                            type="time"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="break2">
+                            Pausa (min.)
+                        </label>
+
+
+                        <input
+                            id="break2"
+                            type="number"
+                            min="0"
+                            value="0"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FÉRIAS
+            ================================================== -->
+
+            <div class="vacation-panel">
+
+                <div class="vacation-panel-header">
+
+                    <div class="vacation-icon">
+                        🏖️
+                    </div>
+
+
+                    <div>
+
+                        <span class="vacation-kicker">
+                            PLANEAMENTO
+                        </span>
+
+
+                        <strong>
+                            Férias por período
+                        </strong>
+
+
+                        <p>
+                            Marca automaticamente todos os dias entre as datas escolhidas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="vacation-date-grid">
+
+                    <div class="form-group">
+
+                        <label for="vacationFrom">
+                            De
+                        </label>
+
+
+                        <input
+                            id="vacationFrom"
+                            type="date"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="vacationTo">
+                            Até
+                        </label>
+
+
+                        <input
+                            id="vacationTo"
+                            type="date"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="vacation-shortcuts">
+
+                    <button
+                        id="currentWeekVacationButton"
+                        class="vacation-shortcut"
+                        type="button"
+                    >
+                        📅 Semana atual
+                    </button>
+
+
+                    <button
+                        id="nextWeekVacationButton"
+                        class="vacation-shortcut"
+                        type="button"
+                    >
+                        ➜ Próxima semana
+                    </button>
+
+                </div>
+
+
+                <button
+                    id="applyVacationButton"
+                    class="button vacation-button"
+                    type="button"
+                >
+                    🏖️ Marcar período como férias
+                </button>
+
+            </div>
+
+
+            <!-- NOTAS -->
+
+            <div class="form-group">
+
+                <label for="scheduleNotes">
+                    Notas
+                </label>
+
+
+                <textarea
+                    id="scheduleNotes"
+                    rows="3"
+                    placeholder="Opcional..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- AÇÕES -->
+
+            <div class="modal-actions">
+
+                <button
+                    id="deleteScheduleButton"
+                    class="button danger"
+                    type="button"
+                >
+                    Eliminar
+                </button>
+
+
+                <div class="modal-actions-right">
+
+                    <button
+                        id="cancelScheduleButton"
+                        class="button secondary"
+                        type="button"
+                    >
+                        Cancelar
+                    </button>
+
+
+                    <button
+                        class="button primary"
+                        type="submit"
+                    >
+                        Guardar horário
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast"
+    role="status"
+    aria-live="polite"
+></div>
+
+
+<script
+    src="app.js?v=20260920"
+></script>
+
+</body>
+</html>
