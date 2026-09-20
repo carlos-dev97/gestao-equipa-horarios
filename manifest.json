@@ -1,12 +1,24 @@
 {
-  "name": "Café Almedina - Gestão de Equipa",
-  "short_name": "Café Almedina",
-  "description": "Gestão de equipa e horários de trabalho do Café Almedina",
-  "id": "./",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#f3f5f7",
-  "theme_color": "#18212f",
-  "orientation": "landscape",
-  "lang": "pt-PT"
+"name": "Café Almedina - Gestão de Equipa",
+"short_name": "Café Almedina",
+"description": "Gestão de equipa e horários de trabalho do Café Almedina",
+"id": "./",
+"start_url": "./index.html",
+"display": "standalone",
+"background_color": "#f3f5f7",
+"theme_color": "#18212f",
+"orientation": "landscape",
+"lang": "pt-PT",
+"icons": [
+{
+"src": "./icons/icon-192.png",
+"sizes": "192x192",
+"type": "image/png"
+},
+{
+"src": "./icons/icon-512.png",
+"sizes": "512x512",
+"type": "image/png"
+}
+]
 }
