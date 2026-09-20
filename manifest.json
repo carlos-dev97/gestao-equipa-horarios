@@ -2,6 +2,7 @@
   "name": "Café Almedina - Gestão de Equipa",
   "short_name": "Café Almedina",
   "description": "Gestão de equipa e horários de trabalho do Café Almedina",
+  "id": "./",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f3f5f7",
