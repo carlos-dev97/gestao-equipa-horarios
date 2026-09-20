@@ -1,7 +1,7 @@
 "use strict";
 
 const CACHE_NAME =
-    "gestao-equipa-horarios-v10-20260920";
+    "gestao-equipa-horarios-v11-20260920";
 
 const FILES_TO_CACHE = [
     "./",
