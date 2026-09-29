@@ -3188,6 +3188,10 @@ body.modal-open {
 
     }
 
+    #scheduleTable th.employee-column {
+    font-size: 12px !important;
+}
+
 
     #scheduleTable th.total-column {
 
@@ -3255,7 +3259,7 @@ body.modal-open {
     .employee-table-name strong {
 
         font-size:
-            10px;
+            13px;
 
         line-height:
             1.2;
@@ -3269,7 +3273,7 @@ body.modal-open {
             1mm;
 
         font-size:
-            7.5px;
+            10px;
 
     }
 
@@ -3340,7 +3344,7 @@ body.modal-open {
             #30251f !important;
 
         font-size:
-            9px;
+            12px;
 
         font-weight:
             800;
@@ -3357,7 +3361,7 @@ body.modal-open {
         #30251f !important;
 
     font-size:
-        10px;
+        12px;
 
     font-weight:
         900;
@@ -3412,7 +3416,7 @@ body.modal-open {
         #8b4860 !important;
 
     font-size:
-        7px !important;
+        9px !important;
 
     font-weight:
         900 !important;
@@ -3441,7 +3445,7 @@ body.modal-open {
             #3b2a22 !important;
 
         font-size:
-            10px;
+            12px;
 
         font-weight:
             900;
